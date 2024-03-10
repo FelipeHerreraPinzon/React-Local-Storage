@@ -6,6 +6,7 @@ import { TaskTable } from './components/TaskTable'
 function App() {
   
   const [taskItems, setTasksItems] = useState([])
+  const [showCompleted, setShowCompleted] = useState(false)
 
   useEffect(() => {
      let data =  localStorage.getItem('tasks')
@@ -40,6 +41,19 @@ function App() {
       <TaskCreator createTask={createTask}/>
       
       <TaskTable tasks={taskItems} toggleTask={toggleTask}/>
+      <br />
+
+      <div>
+        <input type="checkbox" onChange={e => setShowCompleted(!showCompleted)}/>
+        <label>Show Task Done</label>
+      </div>
+
+
+      {
+        showCompleted === true && (
+          <TaskTable tasks={taskItems} toggleTask={toggleTask} showCompleted={showCompleted}/>
+        )
+      }
       
     </>
   )
